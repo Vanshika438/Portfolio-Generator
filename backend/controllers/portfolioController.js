@@ -33,7 +33,7 @@ export const generatePortfolio = async (req, res) => {
     width: 100%;
     padding: 30px 0%;
     height: 40px;
-    background: rgba(0, 0, 0, 0.8);
+    background: ${theme === "dark" ? "rgba(0, 0, 0, 0.8)" : "white"};
     backdrop-filter: blur(10px);
     display: flex;
     justify-content: space-between;
@@ -44,23 +44,23 @@ export const generatePortfolio = async (req, res) => {
 .logo {
     margin-left: 5px;
     font-size: 25px;
-    color: white;
+    color: ${theme === "dark" ? "white" : "black"};
     font-weight: 600;
     transition: 0.3s ease;
 }
 
 .logo:hover {
-    color: orangered;
-    text-shadow: 0 0 25px orangered;
+    color: ${theme === "dark" ? "orangered" : "blue"};
+    text-shadow: ${theme === "dark" ? "0 0 25px orangered" : "0 0 25px blue"};
 }
 
 span {
-    color: orangered;
+    color: ${theme === "dark" ? "orangered" : "blue"};
 }
 
 .navbar a {
     font-size: 18px;
-    color: white;
+    color: ${theme === "dark" ? "white" : "black"};
     font-weight: 500;
     margin: 0 20px;
     border-bottom: 3px solid transparent;
@@ -68,14 +68,14 @@ span {
 }
 
 .navbar a:hover {
-    color: orangered;
-    border-bottom: 3px solid orangered;
+    color: ${theme === "dark" ? "orangered" : "blue"};
+    border-bottom: ${theme === "dark" ? "3px solid orangered" : "3px solid blue"};
 }
 
 #home {
     width: 100%;
     min-height: 100vh;
-    background: rgb(241, 241, 241);
+    background: ${theme === "dark" ? "rgb(30, 30, 30)" : "rgb(241, 241, 241)"};
     display: flex;
     align-items: center;
     gap: 7em;
@@ -88,57 +88,60 @@ span {
 
 .home-content h3 {
     font-size: 42px;
+    color: ${theme === "dark" ? "white" : "black"};
 }
 
 .home-content h1 {
     font-size: 62px;
     line-height: 1.2;
+    color: ${theme === "dark" ? "white" : "black"};
 }
 
 .home-content p {
     font-size: 18px;
+    color: ${theme === "dark" ? "white" : "black"};
     margin: 25px 0 30px;
 }
+
 #About {
     display: flex;
     justify-content: center;
-    background-color: black;
+    background-color: ${theme === "dark" ? "black" : "white"};
     align-items: center;
     padding: 12% 8%;
     gap: 10em;
-
 }
 
 .about-content h2 {
     text-align: left;
-    color: white;
+    color: ${theme === "dark" ? "white" : "black"};
     font-size: 42px;
 }
 
 .about-content p {
-    color: white;
+    color: ${theme === "dark" ? "white" : "black"};
     font-size: 20px;
     margin: 2em 0 3em;
-
 }
+
 .footer {
     position: relative;
     bottom: 0;
     width: 100%;
     padding: 40px 0;
-    background-color: black;
+    background-color: ${theme === "dark" ? "black" : "white"};
 }
 
-.footer .social{
+.footer .social {
     text-align: center;
     padding-bottom: 25px;
-    color: white;
+    color: ${theme === "dark" ? "white" : "black"};
 }
 
 .footer .social a {
     font-size: 24px;
-    color: white;
-    border: 2px solid orangered;
+    color: ${theme === "dark" ? "white" : "black"};
+    border: 2px solid ${theme === "dark" ? "orangered" : "blue"};
     width: 40px;
     height: 40px;
     line-height: 38px;
@@ -146,15 +149,14 @@ span {
     text-align: center;
     border-radius: 50%;
     margin: 0 8px;
-    box-shadow: inset 0 0 10px orangered, 0 0 10px orangered;
+    box-shadow: inset 0 0 10px ${theme === "dark" ? "orangered" : "blue"}, 0 0 10px ${theme === "dark" ? "orangered" : "blue"};
     transition: 0.3s ease;
 }
 
-.footer,
-.social a:hover {
-    transform: scale(1.2)translateY(-10px);
-    color: orangered;
-    border: 2px solid orangered;
+.footer .social a:hover {
+    transform: scale(1.2) translateY(-10px);
+    color: ${theme === "dark" ? "orangered" : "blue"};
+    border: 2px solid ${theme === "dark" ? "orangered" : "blue"};
 }
 
 .footer ul {
@@ -167,22 +169,21 @@ span {
 }
 
 .footer ul li a {
-    color: white;
+    color: ${theme === "dark" ? "white" : "black"};
     border-bottom: 3px solid transparent;
-    transition: 0.3 ease;
+    transition: 0.3s ease;
 }
 
 .footer ul li a:hover {
-    color: orangered;
-    border-bottom: 3px solid orangered;
-
+    color: ${theme === "dark" ? "orangered" : "blue"};
+    border-bottom: 3px solid ${theme === "dark" ? "orangered" : "blue"};
 }
 
 .footer ul li {
     display: inline;
     padding: 0 15px;
 }
-        `;
+;`;
 
         // ✅ Generate HTML content
         const htmlContent = `
