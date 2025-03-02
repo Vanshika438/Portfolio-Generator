@@ -1,0 +1,203 @@
+
+/* PortfolioForm.css */
+
+/* Common styles for both themes */
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  text-decoration: none;
+  list-style: none;
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 30px 0%;
+  height: 40px;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 100;
+}
+
+.logo {
+  margin-left: 5px;
+  font-size: 25px;
+  font-weight: 600;
+  transition: 0.3s ease;
+}
+
+.logo:hover {
+  text-shadow: 0 0 25px orangered;
+}
+
+span {
+  color: orangered;
+}
+
+.navbar a {
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0 20px;
+  border-bottom: 3px solid transparent;
+  transition: 0.3s ease;
+}
+
+.navbar a:hover {
+  border-bottom: 3px solid orangered;
+}
+
+.home-content {
+  max-width: 800px;
+}
+
+.home-content h3 {
+  font-size: 42px;
+}
+
+.home-content h1 {
+  font-size: 62px;
+  line-height: 1.2;
+}
+
+.home-content p {
+  font-size: 18px;
+  margin: 25px 0 30px;
+}
+
+.about-content h2 {
+  font-size: 42px;
+}
+
+.about-content p {
+  font-size: 20px;
+  margin: 2em 0 3em;
+}
+
+.footer {
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  padding: 40px 0;
+}
+
+.footer .social {
+  text-align: center;
+  padding-bottom: 25px;
+}
+
+.footer .social a {
+  font-size: 24px;
+  width: 40px;
+  height: 40px;
+  line-height: 38px;
+  display: inline-block;
+  text-align: center;
+  border-radius: 50%;
+  margin: 0 8px;
+  transition: 0.3s ease;
+  border: 2px solid orangered;
+  box-shadow: inset 0 0 10px orangered, 0 0 10px orangered;
+}
+
+.footer .social a:hover {
+  transform: scale(1.2) translateY(-10px);
+  border: 2px solid orangered;
+}
+
+.footer ul {
+  margin-top: 0;
+  padding: 0;
+  font-size: 18px;
+  line-height: 1.6;
+  margin-bottom: 0;
+  text-align: center;
+}
+
+.footer ul li {
+  display: inline;
+  padding: 0 15px;
+}
+
+.footer ul li a {
+  border-bottom: 3px solid transparent;
+  transition: 0.3s ease;
+}
+
+.footer ul li a:hover {
+  border-bottom: 3px solid orangered;
+}
+
+/* Light theme styles */
+.light .header,
+.light .navbar a,
+.light .footer .social a,
+.light .footer ul li a {
+  color: black;
+}
+
+.light #home {
+  background: rgb(241, 241, 241);
+}
+
+.light .home-content h3,
+.light .home-content h1 {
+  color: black;
+}
+
+.light #About {
+  background-color: white;
+}
+
+.light .about-content h2,
+.light .about-content p {
+  color: black;
+}
+
+.light .footer {
+  background-color: white;
+}
+
+.light .footer .social {
+  color: black;
+}
+
+/* Dark theme styles */
+.dark .header,
+.dark .navbar a,
+.dark .footer .social a,
+.dark .footer ul li a {
+  color: white;
+}
+
+.dark #home {
+  background: rgb(20, 20, 20);
+}
+
+.dark .home-content h3,
+.dark .home-content h1 {
+  color: white;
+}
+
+.dark #About {
+  background-color: black;
+}
+
+.dark .about-content h2,
+.dark .about-content p {
+  color: white;
+}
+
+.dark .footer {
+  background-color: black;
+}
+
+.dark .footer .social {
+  color: white;
+}
+;
