@@ -1,0 +1,63 @@
+/* PortfolioForm.css */
+.form-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+  }
+  
+  .form-container h2 {
+    text-align: center;
+    color: #333;
+  }
+  
+  .input-field {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .textarea {
+    min-height: 100px;
+  }
+  
+  .generate-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .generate-btn:hover {
+    background-color: #45a049;
+  }
+  
+  .download-section {
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .download-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+  }
+  
+  .download-btn:hover {
+    background-color: #0056b3;
+  }
+  
