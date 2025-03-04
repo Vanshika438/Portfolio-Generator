@@ -47,33 +47,44 @@ const PortfolioForm = ({ onChange }) => {
 
   return (
     <div className="form-container">
-      <h2>🎨 Customize Your Portfolio</h2>
-      <input type="text" name="name" placeholder="Your Name" onChange={handleChange} className="input-field" />
-      <input type="text" name="profession" placeholder="Your Profession" onChange={handleChange} className="input-field" />
-      <textarea name="about" placeholder="About You" onChange={handleChange} className="input-field textarea" />
-      <input type="text" name="skills" placeholder="Skills (comma-separated)" onChange={handleChange} className="input-field" />
-      <textarea name="projects" placeholder="Projects (comma-separated)" onChange={handleChange} className="input-field textarea" />
-      
-      <label>🌙 Select Theme:</label>
-      <select name="theme" onChange={handleChange} className="input-field">
-        <option value="light">Light</option>
-        <option value="dark">Dark</option>
-      </select>
+  <h2>🎨 Customize Your Portfolio</h2>
 
-      <label>🖼️ Upload Profile Picture:</label>
-      <input type="file" accept="image/*" onChange={handleFileUpload} className="input-field" />
+  <label htmlFor="name">Your Name</label>
+  <input type="text" name="name" id="name" placeholder="Your Name" onChange={handleChange} className="input-field" />
 
-      <button onClick={generatePortfolio} disabled={loading} className="generate-btn">
-        {loading ? "Generating..." : "🚀 Generate Portfolio"}
-      </button>
+  <label htmlFor="profession">Your Profession</label>
+  <input type="text" name="profession" id="profession" placeholder="Your Profession" onChange={handleChange} className="input-field" />
 
-      {downloadLink && (
-        <div className="download-section">
-          <p>✅ Portfolio Ready!</p>
-          <a href={downloadLink} download className="download-btn">📥 Download Portfolio</a>
-        </div>
-      )}
+  <label htmlFor="about">About You</label>
+  <textarea name="about" id="about" placeholder="About You" onChange={handleChange} className="input-field textarea"></textarea>
+
+  <label htmlFor="skills">Skills (comma-separated)</label>
+  <input type="text" name="skills" id="skills" placeholder="Skills (comma-separated)" onChange={handleChange} className="input-field" />
+
+  <label htmlFor="projects">Projects (comma-separated)</label>
+  <textarea name="projects" id="projects" placeholder="Projects (comma-separated)" onChange={handleChange} className="input-field textarea"></textarea>
+
+  <label htmlFor="theme">🌙 Select Theme:</label>
+  <select name="theme" id="theme" onChange={handleChange} className="input-field">
+    <option value="light">Light</option>
+    <option value="dark">Dark</option>
+  </select>
+
+  <label htmlFor="profilePic">🖼️ Upload Profile Picture:</label>
+  <input type="file" name="profilePic" id="profilePic" accept="image/*" onChange={handleFileUpload} className="input-field" />
+
+  <button onClick={generatePortfolio} disabled={loading} className="generate-btn">
+    {loading ? "Generating..." : "🚀 Generate Portfolio"}
+  </button>
+
+  {downloadLink && (
+    <div className="download-section">
+      <p>✅ Portfolio Ready!</p>
+      <a href={downloadLink} download className="download-btn">📥 Download Portfolio</a>
     </div>
+  )}
+</div>
+
   );
 };
 
