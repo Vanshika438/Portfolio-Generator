@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PortfolioForm from "./components/PortfolioForm";
-import PortfolioPreview from "./components/PortfolioPreview";
+// import PortfolioPreview from "./components/PortfolioPreview";
 import './App.css';
 
 const App = () => {
@@ -10,7 +10,7 @@ const App = () => {
     <div>
       <h1>Portfolio Generator</h1>
       <PortfolioForm onChange={setPortfolioData} />
-      <PortfolioPreview data={portfolioData} />
+      {/* <PortfolioPreview data={portfolioData} /> */}
     </div>
   );
 };
