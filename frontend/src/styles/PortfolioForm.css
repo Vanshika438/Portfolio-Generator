@@ -66,6 +66,20 @@ label {
   margin-top: 20px;
   text-align: center;
 }
+.preview-btn {
+  background-color: #007bff; /* Blue background */
+  color: white; /* White text */
+  border: none; /* No border */
+  padding: 10px 20px; /* Padding */
+  margin-top: 10px; /* Space above the button */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s ease; /* Smooth transition for background color */
+}
+
+.preview-btn:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
 
 .download-btn {
   display: inline-block;

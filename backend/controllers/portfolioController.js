@@ -1,5 +1,66 @@
 import fs from "fs";
-import path from "path";
+import archiver from "archiver";
+
+export const downloadPortfolio = async (req, res) => {
+    try {
+        const { name } = req.params;
+        const folderName = name.replace(/\s+/g, "_").toLowerCase();
+        const folderPath = `generated/${folderName}`;
+
+        if (!fs.existsSync(folderPath)) {
+            return res.status(404).json({ message: "Portfolio not found!" });
+        }
+
+        const files = fs.readdirSync(folderPath);
+        if (files.length === 0) {
+            return res.status(400).json({ message: "Portfolio folder is empty!" });
+        }
+
+        console.log("📁 Files in portfolio folder:", files);
+
+        const zipFilePath = `${folderPath}.zip`;
+
+        // Delete old ZIP file if exists
+        if (fs.existsSync(zipFilePath)) {
+            fs.unlinkSync(zipFilePath);
+        }
+
+        const output = fs.createWriteStream(zipFilePath);
+        const archive = archiver("zip", { zlib: { level: 9 } });
+
+        output.on("close", () => {
+            console.log(`✅ ZIP created (${archive.pointer()} bytes)`);
+            if (fs.existsSync(zipFilePath)) {
+                res.download(zipFilePath, `${folderName}.zip`, (err) => {
+                    if (err) {
+                        console.error("❌ Error sending file:", err);
+                        res.status(500).json({ message: "Error downloading file" });
+                    }
+                    // Delete ZIP after sending
+                    fs.unlinkSync(zipFilePath);
+                });
+            } else {
+                res.status(500).json({ message: "ZIP file was not created properly" });
+            }
+        });
+
+        archive.on("error", (err) => {
+            console.error("❌ Archive error:", err);
+            res.status(500).json({ message: "Error creating ZIP" });
+        });
+
+        archive.pipe(output);
+
+        console.log("📦 Adding files to ZIP...");
+        archive.directory(folderPath, false);
+
+        await archive.finalize(); // Ensure ZIP is fully created before download
+
+    } catch (error) {
+        console.error("❌ Error downloading portfolio:", error);
+        res.status(500).json({ message: "Server error" });
+    }
+};
 
 export const generatePortfolio = async (req, res) => {
     try {
@@ -196,7 +257,7 @@ span {
            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
             integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
             crossorigin="anonymous" referrerpolicy="no-referrer" />
-           <link rel="stylesheet" href="styles.css">
+           <link rel="stylesheet" href="style.css">
            </head>
 
            <body>
@@ -238,12 +299,18 @@ span {
           </body>
 
           </html>`;
+          
 
         // ✅ Save HTML & CSS files
         fs.writeFileSync(`${folderPath}/index.html`, htmlContent);
-        fs.writeFileSync(`${folderPath}/styles.css`, cssContent);
+        fs.writeFileSync(`${folderPath}/style.css`, cssContent);
+        const previewURL = `http://localhost:5000/preview/${folderName}/index.html`;
+res.json({ 
+    message: "Portfolio generated successfully!", 
+    filePath: `${folderPath}/index.html`,
+    previewURL // ✅ Make sure previewURL is included in the response
+});
 
-        res.json({ message: "Portfolio generated successfully!", filePath: `${folderPath}/index.html` });
     } catch (error) {
         console.error("❌ Error generating portfolio:", error);
         res.status(500).json({ message: "Server error", error: error.message });

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from "react"; 
 import axios from "axios";
 import "../styles/PortfolioForm.css";
 
@@ -15,11 +15,15 @@ const PortfolioForm = ({ onChange }) => {
 
   const [loading, setLoading] = useState(false);
   const [downloadLink, setDownloadLink] = useState("");
+  const [previewURL, setPreviewURL] = useState(""); // ✅ Store preview URL
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-    onChange({ ...formData, [name]: value });
+    setFormData((prev) => {
+        const updatedFormData = { ...prev, [name]: value };
+        onChange(updatedFormData); // ✅ Ensures App.js gets updated data
+        return updatedFormData;
+    });
   };
 
   const handleFileUpload = (e) => {
@@ -34,57 +38,89 @@ const PortfolioForm = ({ onChange }) => {
   };
 
   const generatePortfolio = async () => {
+    if (!formData.name) {
+      alert("Please enter your name!");
+      return;
+    }
+
     setLoading(true);
     try {
       const response = await axios.post("http://localhost:5000/api/portfolio/generate", formData);
       setDownloadLink(`http://localhost:5000/${response.data.filePath}`);
+      setPreviewURL(response.data.previewURL); // ✅ Ensure previewURL is set
     } catch (error) {
       console.error("Error generating portfolio:", error.response?.data || error.message);
       alert("Failed to generate portfolio. Try again!");
     }
     setLoading(false);
+};
+
+
+  const handleDownload = async () => {
+    if (!formData.name) {
+      alert("Please generate the portfolio first!");
+      return;
+    }
+
+    const response = await fetch(`http://localhost:5000/api/portfolio/download/${formData.name}`);
+    const blob = await response.blob();
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = `${formData.name}.zip`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   return (
     <div className="form-container">
-  <h2>🎨 Customize Your Portfolio</h2>
+      <h2>🎨 Customize Your Portfolio</h2>
 
-  <label htmlFor="name">Your Name</label>
-  <input type="text" name="name" id="name" placeholder="Your Name" onChange={handleChange} className="input-field" />
+      <label htmlFor="name">Your Name</label>
+      <input type="text" name="name" id="name" placeholder="Your Name" onChange={handleChange} className="input-field" />
 
-  <label htmlFor="profession">Your Profession</label>
-  <input type="text" name="profession" id="profession" placeholder="Your Profession" onChange={handleChange} className="input-field" />
+      <label htmlFor="profession">Your Profession</label>
+      <input type="text" name="profession" id="profession" placeholder="Your Profession" onChange={handleChange} className="input-field" />
 
-  <label htmlFor="about">About You</label>
-  <textarea name="about" id="about" placeholder="About You" onChange={handleChange} className="input-field textarea"></textarea>
+      <label htmlFor="about">About You</label>
+      <textarea name="about" id="about" placeholder="About You" onChange={handleChange} className="input-field textarea"></textarea>
 
-  <label htmlFor="skills">Skills (comma-separated)</label>
-  <input type="text" name="skills" id="skills" placeholder="Skills (comma-separated)" onChange={handleChange} className="input-field" />
+      <label htmlFor="skills">Skills (comma-separated)</label>
+      <input type="text" name="skills" id="skills" placeholder="Skills (comma-separated)" onChange={handleChange} className="input-field" />
 
-  <label htmlFor="projects">Projects (comma-separated)</label>
-  <textarea name="projects" id="projects" placeholder="Projects (comma-separated)" onChange={handleChange} className="input-field textarea"></textarea>
+      <label htmlFor="projects">Projects (comma-separated)</label>
+      <textarea name="projects" id="projects" placeholder="Projects (comma-separated)" onChange={handleChange} className="input-field textarea"></textarea>
 
-  <label htmlFor="theme">🌙 Select Theme:</label>
-  <select name="theme" id="theme" onChange={handleChange} className="input-field">
-    <option value="light">Light</option>
-    <option value="dark">Dark</option>
-  </select>
+      <label htmlFor="theme">🌙 Select Theme:</label>
+      <select name="theme" id="theme" onChange={handleChange} className="input-field">
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+      </select>
 
-  <label htmlFor="profilePic">🖼️ Upload Profile Picture:</label>
-  <input type="file" name="profilePic" id="profilePic" accept="image/*" onChange={handleFileUpload} className="input-field" />
+      <label htmlFor="profilePic">🖼️ Upload Profile Picture:</label>
+      <input type="file" name="profilePic" id="profilePic" accept="image/*" onChange={handleFileUpload} className="input-field" />
 
-  <button onClick={generatePortfolio} disabled={loading} className="generate-btn">
-    {loading ? "Generating..." : "🚀 Generate Portfolio"}
-  </button>
+      <button onClick={generatePortfolio} disabled={loading} className="generate-btn">
+        {loading ? "Generating..." : "🚀 Generate Portfolio"}
+      </button>
 
-  {downloadLink && (
-    <div className="download-section">
-      <p>✅ Portfolio Ready!</p>
-      <a href={downloadLink} download className="download-btn">📥 Download Portfolio</a>
+      {previewURL && (
+    <div className="preview-section">
+        <p>👀 Portfolio Preview:</p>
+        <a href={previewURL} target="_blank" rel="noopener noreferrer">
+            <button className="preview-btn">🔍 Preview Portfolio</button>
+        </a>
     </div>
-  )}
-</div>
+)}
 
+
+      {downloadLink && (
+        <div className="download-section">
+          <p>✅ Portfolio Ready!</p>
+          <button onClick={handleDownload}>📥 Download Portfolio</button>
+        </div>
+      )}
+    </div>
   );
 };
 
