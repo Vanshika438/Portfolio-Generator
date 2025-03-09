@@ -18,7 +18,6 @@ export const downloadPortfolio = async (req, res) => {
 
         console.log("📁 Files in portfolio folder:", files);
 
-        // Delete old ZIP file if exists
         if (fs.existsSync(zipFilePath)) {
             fs.unlinkSync(zipFilePath);
         }
@@ -29,7 +28,7 @@ export const downloadPortfolio = async (req, res) => {
         output.on("close", () => {
             res.download(zipFilePath, `${folderName}.zip`, (err) => {
                 if (!err) {
-                    fs.unlinkSync(zipFilePath); // ✅ Delete ZIP after download
+                    fs.unlinkSync(zipFilePath); 
                 }
             });
         });
@@ -45,7 +44,7 @@ export const downloadPortfolio = async (req, res) => {
         console.log("📦 Adding files to ZIP...");
         archive.directory(folderPath, false);
 
-        await archive.finalize(); // Ensure ZIP is fully created before download
+        await archive.finalize(); 
 
     } catch (error) {
         console.error("❌ Error downloading portfolio:", error);
@@ -68,9 +67,18 @@ export const generatePortfolio = async (req, res) => {
         }
             fs.mkdirSync(folderPath, { recursive: true });
 
-        // ✅ Generate CSS based on selected theme
-        const cssContent = `
-            * {
+        //  Generate HTML and css content
+        const htmlContent = `
+           <!DOCTYPE html>
+           <html lang="en">
+           <head>
+           <meta charset="UTF-8">
+           <meta name="viewport" content="width=device-width, initial-scale=1.0">
+           <title>${name}'s Portfolio</title>
+           <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+            integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+            crossorigin="anonymous" referrerpolicy="no-referrer" />
+           <style>* {
     margin: 0;
     padding: 0;
     font-family: Arial, Helvetica, sans-serif;
@@ -235,20 +243,8 @@ span {
     display: inline;
     padding: 0 15px;
 }
-;`;
 
-        // ✅ Generate HTML content
-        const htmlContent = `
-           <!DOCTYPE html>
-           <html lang="en">
-           <head>
-           <meta charset="UTF-8">
-           <meta name="viewport" content="width=device-width, initial-scale=1.0">
-           <title>${name}'s Portfolio</title>
-           <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-            integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
-            crossorigin="anonymous" referrerpolicy="no-referrer" />
-           <link rel="stylesheet" href="style.css">
+           </style>
            </head>
 
            <body>
@@ -292,9 +288,8 @@ span {
           </html>`;
           
 
-        // ✅ Save HTML & CSS files
+        // Save HTML & CSS files
         fs.writeFileSync(`${folderPath}/index.html`, htmlContent);
-        fs.writeFileSync(`${folderPath}/style.css`, cssContent);
         const previewURL = `http://localhost:5000/preview/${folderName}/index.html`;
         res.json({
             message: "Portfolio generated successfully!",
