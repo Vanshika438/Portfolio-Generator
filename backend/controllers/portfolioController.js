@@ -1,24 +1,22 @@
 import fs from "fs";
+import path from "path";
 import archiver from "archiver";
 
 export const downloadPortfolio = async (req, res) => {
     try {
         const { name } = req.params;
         const folderName = name.replace(/\s+/g, "_").toLowerCase();
-        const folderPath = `generated/${folderName}`;
-
+        const folderPath = path.join("generated", folderName);
         if (!fs.existsSync(folderPath)) {
             return res.status(404).json({ message: "Portfolio not found!" });
         }
-
+        const zipFilePath = `${folderPath}.zip`;
         const files = fs.readdirSync(folderPath);
         if (files.length === 0) {
             return res.status(400).json({ message: "Portfolio folder is empty!" });
         }
 
         console.log("📁 Files in portfolio folder:", files);
-
-        const zipFilePath = `${folderPath}.zip`;
 
         // Delete old ZIP file if exists
         if (fs.existsSync(zipFilePath)) {
@@ -29,20 +27,13 @@ export const downloadPortfolio = async (req, res) => {
         const archive = archiver("zip", { zlib: { level: 9 } });
 
         output.on("close", () => {
-            console.log(`✅ ZIP created (${archive.pointer()} bytes)`);
-            if (fs.existsSync(zipFilePath)) {
-                res.download(zipFilePath, `${folderName}.zip`, (err) => {
-                    if (err) {
-                        console.error("❌ Error sending file:", err);
-                        res.status(500).json({ message: "Error downloading file" });
-                    }
-                    // Delete ZIP after sending
-                    fs.unlinkSync(zipFilePath);
-                });
-            } else {
-                res.status(500).json({ message: "ZIP file was not created properly" });
-            }
+            res.download(zipFilePath, `${folderName}.zip`, (err) => {
+                if (!err) {
+                    fs.unlinkSync(zipFilePath); // ✅ Delete ZIP after download
+                }
+            });
         });
+
 
         archive.on("error", (err) => {
             console.error("❌ Archive error:", err);
@@ -64,18 +55,18 @@ export const downloadPortfolio = async (req, res) => {
 
 export const generatePortfolio = async (req, res) => {
     try {
-        const { name, profession, about, skills, projects, theme, profilePic } = req.body;
+        const { name, profession, about, skills, theme, profilePic } = req.body;
 
-        if (!name || !profession || !about || !skills || !projects) {
+        if (!name || !profession || !about || !skills ) {
             return res.status(400).json({ message: "All fields are required!" });
         }
 
         const folderName = name.replace(/\s+/g, "_").toLowerCase();
         const folderPath = `generated/${folderName}`;
-
-        if (!fs.existsSync(folderPath)) {
-            fs.mkdirSync(folderPath, { recursive: true });
+        if (fs.existsSync(folderPath)) {
+            fs.rmSync(folderPath, { recursive: true, force: true });
         }
+            fs.mkdirSync(folderPath, { recursive: true });
 
         // ✅ Generate CSS based on selected theme
         const cssContent = `
@@ -305,12 +296,11 @@ span {
         fs.writeFileSync(`${folderPath}/index.html`, htmlContent);
         fs.writeFileSync(`${folderPath}/style.css`, cssContent);
         const previewURL = `http://localhost:5000/preview/${folderName}/index.html`;
-res.json({ 
-    message: "Portfolio generated successfully!", 
-    filePath: `${folderPath}/index.html`,
-    previewURL // ✅ Make sure previewURL is included in the response
-});
-
+        res.json({
+            message: "Portfolio generated successfully!",
+            previewURL,
+            downloadURL: `/download/${folderName}`,
+        });
     } catch (error) {
         console.error("❌ Error generating portfolio:", error);
         res.status(500).json({ message: "Server error", error: error.message });

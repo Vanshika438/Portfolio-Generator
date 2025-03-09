@@ -18,10 +18,10 @@
 }
 
 label {
-  display: block; /* Add this to ensure labels take full width */
+  display: block; 
   font-size: 16px;
   font-weight: 500;
-  margin-bottom: 5px; /* Add space below labels */
+  margin-bottom: 5px; 
 }
 
 .input-field {
@@ -67,30 +67,34 @@ label {
   text-align: center;
 }
 .preview-btn {
-  background-color: #007bff; /* Blue background */
-  color: white; /* White text */
-  border: none; /* No border */
-  padding: 10px 20px; /* Padding */
-  margin-top: 10px; /* Space above the button */
-  border-radius: 5px; /* Rounded corners */
-  cursor: pointer; /* Pointer cursor on hover */
-  transition: background-color 0.3s ease; /* Smooth transition for background color */
+  background-color: #007bff; 
+  color: white; 
+  border: none;
+  padding: 10px 20px;
+  margin-top: 10px; 
+  border-radius: 5px; 
+  cursor: pointer; 
+  transition: background-color 0.3s ease; 
 }
 
 .preview-btn:hover {
-  background-color: #0056b3; /* Darker blue on hover */
+  background-color: #0056b3;
 }
 
 .download-btn {
   display: inline-block;
   padding: 10px 20px;
-  background-color: green;
+  background: linear-gradient(45deg, #28a745, #218838); 
   color: #FFFFFF;
+  font-weight: bold;
   border: none;
-  border-radius: 4px;
+  border-radius: 8px; 
   text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.3s ease, background 0.3s ease; 
 }
 
 .download-btn:hover {
-  background-color: #0056b3;
+  background: linear-gradient(45deg, #218838, #1e7e34); 
+  transform: scale(1.05); 
 }

@@ -1,4 +1,4 @@
-import React, { useState } from "react"; 
+import React, { useState } from "react";
 import axios from "axios";
 import "../styles/PortfolioForm.css";
 
@@ -8,7 +8,6 @@ const PortfolioForm = ({ onChange }) => {
     profession: "",
     about: "",
     skills: "",
-    projects: "",
     theme: "light",
     profilePic: "",
   });
@@ -20,9 +19,9 @@ const PortfolioForm = ({ onChange }) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => {
-        const updatedFormData = { ...prev, [name]: value };
-        onChange(updatedFormData); // ✅ Ensures App.js gets updated data
-        return updatedFormData;
+      const updatedFormData = { ...prev, [name]: value };
+      onChange(updatedFormData); // ✅ Ensures App.js gets updated data
+      return updatedFormData;
     });
   };
 
@@ -53,7 +52,7 @@ const PortfolioForm = ({ onChange }) => {
       alert("Failed to generate portfolio. Try again!");
     }
     setLoading(false);
-};
+  };
 
 
   const handleDownload = async () => {
@@ -88,9 +87,6 @@ const PortfolioForm = ({ onChange }) => {
       <label htmlFor="skills">Skills (comma-separated)</label>
       <input type="text" name="skills" id="skills" placeholder="Skills (comma-separated)" onChange={handleChange} className="input-field" />
 
-      <label htmlFor="projects">Projects (comma-separated)</label>
-      <textarea name="projects" id="projects" placeholder="Projects (comma-separated)" onChange={handleChange} className="input-field textarea"></textarea>
-
       <label htmlFor="theme">🌙 Select Theme:</label>
       <select name="theme" id="theme" onChange={handleChange} className="input-field">
         <option value="light">Light</option>
@@ -105,19 +101,19 @@ const PortfolioForm = ({ onChange }) => {
       </button>
 
       {previewURL && (
-    <div className="preview-section">
-        <p>👀 Portfolio Preview:</p>
-        <a href={previewURL} target="_blank" rel="noopener noreferrer">
+        <div className="preview-section">
+          <p>👀 Portfolio Preview:</p>
+          <a href={previewURL} target="_blank" rel="noopener noreferrer">
             <button className="preview-btn">🔍 Preview Portfolio</button>
-        </a>
-    </div>
-)}
+          </a>
+        </div>
+      )}
 
 
       {downloadLink && (
         <div className="download-section">
           <p>✅ Portfolio Ready!</p>
-          <button onClick={handleDownload}>📥 Download Portfolio</button>
+          <button className="download-btn" onClick={handleDownload}>📥 Download Portfolio</button>
         </div>
       )}
     </div>
