@@ -10,19 +10,20 @@ const PortfolioForm = ({ onChange }) => {
     skills: "",
     theme: "light",
     profilePic: "",
+    linkedIn:"",
+    instagram:""
   });
 
   const [loading, setLoading] = useState(false);
   const [downloadLink, setDownloadLink] = useState("");
-  const [previewURL, setPreviewURL] = useState(""); // ✅ Store preview URL
+  const [previewURL, setPreviewURL] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => {
-      const updatedFormData = { ...prev, [name]: value };
-      onChange(updatedFormData); // ✅ Ensures App.js gets updated data
-      return updatedFormData;
-    });
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
   const handleFileUpload = (e) => {
@@ -46,7 +47,7 @@ const PortfolioForm = ({ onChange }) => {
     try {
       const response = await axios.post("http://localhost:5000/api/portfolio/generate", formData);
       setDownloadLink(`http://localhost:5000/${response.data.filePath}`);
-      setPreviewURL(response.data.previewURL); // ✅ Ensure previewURL is set
+      setPreviewURL(response.data.previewURL);
     } catch (error) {
       console.error("Error generating portfolio:", error.response?.data || error.message);
       alert("Failed to generate portfolio. Try again!");
@@ -92,6 +93,26 @@ const PortfolioForm = ({ onChange }) => {
         <option value="light">Light</option>
         <option value="dark">Dark</option>
       </select>
+
+      <label htmlFor="linkedIn">LinkedIn URL</label>
+      <input
+        type="url"
+        name="linkedIn"
+        id="linkedIn"
+        placeholder="Your LinkedIn Profile URL"
+        onChange={handleChange}
+        className="input-field"
+      />
+
+      <label htmlFor="instagram">Instagram URL (optional)</label>
+      <input
+        type="url"
+        name="instagram"
+        id="instagram"
+        placeholder="Your Instagram Profile URL (optional)"
+        onChange={handleChange}
+        className="input-field"
+      />
 
       <label htmlFor="profilePic">🖼️ Upload Profile Picture:</label>
       <input type="file" name="profilePic" id="profilePic" accept="image/*" onChange={handleFileUpload} className="input-field" />

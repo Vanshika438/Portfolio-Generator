@@ -1,100 +1,137 @@
 /* PortfolioForm.css */
+
+/* General Styles */
 .form-container {
-  width: 100%;
   max-width: 600px;
   margin: 0 auto;
   padding: 20px;
-  border: 1px solid #D3D3D3;
-  border-radius: 8px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  background-color: #FFFFFF;
 }
 
-.form-container h2 {
-  font-size: 24px;
-  font-weight: bold;
+h2 {
   text-align: center;
-  color: #343A40;
+  color: #333;
+  margin-bottom: 20px;
 }
 
 label {
-  display: block; 
-  font-size: 16px;
-  font-weight: 500;
-  margin-bottom: 5px; 
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #555;
 }
 
 .input-field {
-  display: flex;
-  width: 90%;
+  width: 100%;
   padding: 10px;
-  margin: 10px 5px;
-  border: 1px solid #D3D3D3;
-  border-radius: 6px;
-  background-color: #FFFFFF;
-  color: #343A40;
-  transition: all 0.3s ease;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  box-sizing: border-box;
 }
 
 .input-field:focus {
-  border-color: #1E90FF;
-  box-shadow: 0 0 5px rgba(30,144,255,0.5);
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
 .textarea {
+  resize: vertical;
   min-height: 100px;
 }
 
-.generate-btn {
+.generate-btn,
+.preview-btn,
+.download-btn {
+  display: block;
   width: 100%;
   padding: 12px;
   font-size: 16px;
-  background-color: #1E90FF;
-  color: #FFFFFF;
+  font-weight: bold;
+  color: #fff;
+  background-color: #007bff;
   border: none;
-  border-radius: 6px;
+  border-radius: 5px;
   cursor: pointer;
-  background: linear-gradient(45deg,#1E90FF,#0056B3);
+  text-align: center;
   transition: background-color 0.3s ease;
 }
 
-.generate-btn:hover {
+.generate-btn:hover,
+.preview-btn:hover,
+.download-btn:hover {
   background-color: #0056b3;
 }
 
+.generate-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.preview-section,
 .download-section {
   margin-top: 20px;
   text-align: center;
 }
-.preview-btn {
-  background-color: #007bff; 
-  color: white; 
-  border: none;
-  padding: 10px 20px;
-  margin-top: 10px; 
-  border-radius: 5px; 
-  cursor: pointer; 
-  transition: background-color 0.3s ease; 
+
+.preview-section p,
+.download-section p {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 10px;
 }
 
-.preview-btn:hover {
-  background-color: #0056b3;
-}
-
+.preview-btn,
 .download-btn {
-  display: inline-block;
+  width: auto;
   padding: 10px 20px;
-  background: linear-gradient(45deg, #28a745, #218838); 
-  color: #FFFFFF;
-  font-weight: bold;
-  border: none;
-  border-radius: 8px; 
-  text-decoration: none;
-  cursor: pointer;
-  transition: transform 0.3s ease, background 0.3s ease; 
+  margin: 0 auto;
 }
 
-.download-btn:hover {
-  background: linear-gradient(45deg, #218838, #1e7e34); 
-  transform: scale(1.05); 
+/* Responsive Design */
+@media (max-width: 768px) {
+  .form-container {
+    padding: 15px;
+  }
+
+  h2 {
+    font-size: 24px;
+  }
+
+  .input-field {
+    font-size: 14px;
+  }
+
+  .generate-btn,
+  .preview-btn,
+  .download-btn {
+    font-size: 14px;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .form-container {
+    padding: 10px;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+
+  .input-field {
+    font-size: 12px;
+    padding: 8px;
+  }
+
+  .generate-btn,
+  .preview-btn,
+  .download-btn {
+    font-size: 12px;
+    padding: 8px;
+  }
 }

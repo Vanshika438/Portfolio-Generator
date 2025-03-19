@@ -28,7 +28,7 @@ export const downloadPortfolio = async (req, res) => {
         output.on("close", () => {
             res.download(zipFilePath, `${folderName}.zip`, (err) => {
                 if (!err) {
-                    fs.unlinkSync(zipFilePath); 
+                    fs.unlinkSync(zipFilePath);
                 }
             });
         });
@@ -44,7 +44,7 @@ export const downloadPortfolio = async (req, res) => {
         console.log("📦 Adding files to ZIP...");
         archive.directory(folderPath, false);
 
-        await archive.finalize(); 
+        await archive.finalize();
 
     } catch (error) {
         console.error("❌ Error downloading portfolio:", error);
@@ -54,9 +54,9 @@ export const downloadPortfolio = async (req, res) => {
 
 export const generatePortfolio = async (req, res) => {
     try {
-        const { name, profession, about, skills, theme, profilePic } = req.body;
+        const { name, profession, about, skills, theme, profilePic, linkedIn, instagram } = req.body;
 
-        if (!name || !profession || !about || !skills ) {
+        if (!name || !profession || !about || !skills || !linkedIn) {
             return res.status(400).json({ message: "All fields are required!" });
         }
 
@@ -65,7 +65,7 @@ export const generatePortfolio = async (req, res) => {
         if (fs.existsSync(folderPath)) {
             fs.rmSync(folderPath, { recursive: true, force: true });
         }
-            fs.mkdirSync(folderPath, { recursive: true });
+        fs.mkdirSync(folderPath, { recursive: true });
 
         //  Generate HTML and css content
         const htmlContent = `
@@ -273,20 +273,26 @@ span {
           </section>
           <hr>
           <footer class="footer">
-          <div class="social">
-            <a href="#"><i class="fa-brands fa-instagram"></i></a>
-            <a href="#"><i class="fa-brands fa-linkedin"></i></a>
-          </div>
-          <ul class="list">
-            <li><a href="#">FAQ</a></li>
-            <li><a href="#About">About me</a></li>
-            <li><a href="#contact">Contact</a></li>
-          </ul>
-          </footer>
+  <div class="social">
+    ${instagram
+                ? `<a href="${instagram}" target="_blank"><i class="fa-brands fa-instagram"></i></a>`
+                : ""
+            }
+    ${linkedIn
+                ? `<a href="${linkedIn}" target="_blank"><i class="fa-brands fa-linkedin"></i></a>`
+                : ""
+            }
+  </div>
+  <ul class="list">
+    <li><a href="#">FAQ</a></li>
+    <li><a href="#About">About me</a></li>
+  </ul>
+</footer>
+
           </body>
 
           </html>`;
-          
+
 
         // Save HTML & CSS files
         fs.writeFileSync(`${folderPath}/index.html`, htmlContent);

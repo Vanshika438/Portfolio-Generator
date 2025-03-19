@@ -14,7 +14,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-// ✅ Serve generated portfolios
+// Serve generated portfolios
 app.use("/preview", express.static(path.join(__dirname, "generated")));
 
 import portfolioRoutes from "./routes/portfolioRoutes.js";
