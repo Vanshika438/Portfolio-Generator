@@ -104,7 +104,8 @@ const PortfolioForm = ({ onChange }) => {
         className="input-field"
       />
 
-      <label htmlFor="instagram">Instagram URL (optional)</label>
+      <label htmlFor="instagram">
+        \Instagram URL (optional)</label>
       <input
         type="url"
         name="instagram"
