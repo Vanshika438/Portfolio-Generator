@@ -45,7 +45,7 @@ const PortfolioForm = ({ onChange }) => {
 
     setLoading(true);
     try {
-      const response = await axios.post("https://portfolio-generator-2.onrender.com/generate", formData);
+      const response = await axios.post("http://localhost:5000/api/portfolio/generate", formData);
       setDownloadLink(`http://localhost:5000/${response.data.filePath}`);
       setPreviewURL(response.data.previewURL);
     } catch (error) {
