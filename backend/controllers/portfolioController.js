@@ -296,7 +296,9 @@ span {
 
         // Save HTML & CSS files
         fs.writeFileSync(`${folderPath}/index.html`, htmlContent);
-        const previewURL = `${req.protocol}://${req.get("host")}/preview/${folderName}/index.html`;
+        const baseURL = process.env.BASE_URL || "http://localhost:5000";
+const previewURL = `${baseURL}/preview/${folderName}/index.html`;
+
 
         res.json({
             message: "Portfolio generated successfully!",
