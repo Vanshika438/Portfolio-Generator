@@ -45,8 +45,8 @@ const PortfolioForm = ({ onChange }) => {
 
     setLoading(true);
     try {
-      const response = await axios.post("http://localhost:5000/api/portfolio/generate", formData);
-      setDownloadLink(`http://localhost:5000/${response.data.filePath}`);
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/generate`, formData);
+      setDownloadLink(`${process.env.REACT_APP_API_URL}/${response.data.filePath}`);
       setPreviewURL(response.data.previewURL);
     } catch (error) {
       console.error("Error generating portfolio:", error.response?.data || error.message);
@@ -62,7 +62,7 @@ const PortfolioForm = ({ onChange }) => {
       return;
     }
 
-    const response = await fetch(`http://localhost:5000/api/portfolio/download/${formData.name}`);
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/portfolio/download/${formData.name}`);
     const blob = await response.blob();
     const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
