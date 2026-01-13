@@ -1,57 +1,84 @@
-# Portfolio Generator
+# Portfolio Generator 🎨💻
 
-A dynamic tool to create a personal portfolio website with ease.  
-Users can input their details (about, skills, projects, contact, etc.) and the app generates a clean and responsive portfolio.
-
----
-
-## 🧰 Table of Contents
-
-- [Features](#features)  
-- [Tech Stack](#tech-stack)  
-- [Getting Started](#getting-started)  
-  - [Prerequisites](#prerequisites)  
-  - [Installation](#installation)  
-  - [Running Locally](#running-locally)  
-- [Usage](#usage)  
-- [Project Structure](#project-structure)  
-- [Contributing](#contributing)  
-- [License](#license)  
-- [Contact](#contact)  
+Portfolio Generator is a web application that allows users to create a clean, responsive personal portfolio website by entering their details in a simple interface. The application dynamically generates a portfolio that can be customized and downloaded.
 
 ---
 
-## Features
+## 🚀 Features
 
-- Interactive UI to add personal details.  
-- Auto-generation of portfolio sections (About, Skills, Projects, Contact).  
-- Responsive and modern design.  
-- Easy customization.  
-- Simple to run locally.  
-
----
-
-## Tech Stack
-
-- **Frontend:** HTML, CSS, JavaScript  
-- **Backend:** Node.js, Express (if used)  
-- **Other:** Git, npm  
+- Live preview of portfolio while entering details
+- Theme customization and dark mode support
+- Profile image upload with preview
+- Generates a personalized portfolio using HTML and CSS
+- Fully responsive design for all devices
+- Clean and user-friendly UI
 
 ---
 
-## Getting Started
+## 🛠️ Tech Stack
 
-### Prerequisites
+**Frontend**
+- React.js
+- HTML5
+- CSS3
+- JavaScript (ES6)
 
-Make sure you have installed:
+**Backend**
+- Node.js
+- Express.js
 
-- [Node.js](https://nodejs.org/) (v12 or above)  
-- npm (comes with Node.js)  
+---
 
-### Installation
+## ⚙️ How It Works
 
-Clone this repository:
+1. Users enter personal details, skills, and project information  
+2. The frontend updates the portfolio preview in real time  
+3. A downloadable portfolio website is generated using HTML and CSS  
+
+---
+
+## 📦 Installation & Setup
 
 ```bash
 git clone https://github.com/Vanshika438/Portfolio-Generator.git
 cd Portfolio-Generator
+
+cd backend
+npm install
+
+cd ../frontend
+npm install
+
+npm run dev
+```
+
+Open your browser and visit:
+```
+http://localhost:3000
+```
+
+---
+
+## 📁 Project Structure
+
+```
+Portfolio-Generator/
+├── backend/        # Server and API logic
+├── frontend/       # React frontend
+├── README.md
+└── .gitignore
+```
+
+---
+
+## 👩‍💻 Author
+
+**Vanshika Sharma**  
+Computer Science Engineering Student  
+
+- GitHub: https://github.com/Vanshika438  
+- Portfolio: https://vanshika-sharma-portfolio.netlify.app/
+
+---
+
+⭐ If you like this project, feel free to give it a star!
