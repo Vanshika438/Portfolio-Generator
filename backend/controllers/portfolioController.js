@@ -297,7 +297,7 @@ span {
         // Save HTML & CSS files
         fs.writeFileSync(`${folderPath}/index.html`, htmlContent);
         const baseURL = process.env.BASE_URL || "http://localhost:5000";
-const previewURL = `${baseURL}/preview/${folderName}/index.html`;
+        const previewURL = `${baseURL}/preview/${folderName}/index.html`;
 
 
         res.json({
